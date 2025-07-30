@@ -8,7 +8,7 @@ import pandas as pd
 from dotenv import load_dotenv
 from openai import AzureOpenAI
 import plotly.express as px
-from VoiceToText import VoiceToText as vtt
+# from VoiceToText import VoiceToText as vtt
 # Configure page
 st.set_page_config(
     page_title="SAP Agentic AI Assistant",
@@ -241,25 +241,7 @@ def convert_microsoft_date(date_str):
     match = re.search(r'\d+', date_str)  # Extract digits (timestamp in milliseconds)
     return pd.to_datetime(int(match.group()), unit='ms') if match else None
 
-# Function to convert audio to text
-def audioToText():
-    while True:
-        # Record audio
-        frames, sample_rate = vtt.record_audio()
-
-        # Save audio to temporary file
-        temp_audio_file = vtt.save_audio(frames, sample_rate)
-
-        # Transcribe audio
-        print("Transcribing...")
-        text = vtt.transcribe_audio(temp_audio_file)
-
-        # Clean up temporary file
-        os.unlink(temp_audio_file)
-
-        print("\nReady for next recording. Press PAUSE to start.")
-        return text
-    
+ 
 # function to generate the analysis summary    
 def generate_analysis_summary(df: pd.DataFrame) -> str:
     # Reduce the size of the DataFrame content to avoid token overflow
